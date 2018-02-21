@@ -1,0 +1,62 @@
+<nav class="navbar navbar-fixed-top cl-blue-navbar">
+  <div class="row">
+    <div class="col-xs-4 hidden-xs">
+      <div class="container-fluid">
+        <p class="navbar-text pull-left">
+          <a routerLink="user/{{userId}}/website" class="navbar-link cl-text-white">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+        </p>
+        <a class="cl-text-white navbar-brand cl-text-bold" routerLink=".">
+          Websites
+        </a>
+        <a routerLink="." class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+          <span class="glyphicon glyphicon-plus"></span>
+        </a>
+      </div>
+    </div>
+    <div class="col-xs-8">
+      <div class="container-fluid">
+        <a class="cl-text-white navbar-brand cl-text-bold" routerLink=".">
+          New Websites
+        </a>
+        <a (click)="createNewWebsite(newWebsite)"
+           class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+          <span class="glyphicon glyphicon-ok"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="contain-fluid">
+  <div class="col-xs-4 hidden-xs">
+    <div *ngFor="let website of websites">
+      <ul class="list-group cl-list-group-borderless">
+        <a routerLink="/user/{{userId}}/website/{{website._id}}"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+        <a routerLink="/user/{{userId}}/website/{{website._id}}/page">{{website.name}}</a>
+      </ul>
+    </div>
+  </div>
+  <div class="col-xs-8 borders">
+    <form>
+      <div class="form-group cl-8-top">
+        <label for="website-name">Name</label>
+        <input [(ngModel)]="newWebsite.name" type="text" class="form-control" name="name" id="website-name" placeholder="Name">
+      </div>
+      <div class="form-group cl-8-top">
+        <label for="website-description">Description</label>
+        <textarea [(ngModel)]="newWebsite.description" id="website-description" class="form-control" name="description" rows="5" placeholder="Description"></textarea>
+      </div>
+    </form>
+  </div>
+</div>
+
+<nav class="navbar navbar-fixed-bottom cl-blue-navbar">
+  <div class="container-fuild">
+    <a routerLink="user/{{userId}}" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </div>
+</nav>
+
