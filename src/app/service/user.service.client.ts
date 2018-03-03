@@ -10,11 +10,16 @@ export class UserService {
     {_id: '456', username: 'jannunzi', password: 'jannunzi', firstName: 'Jose', lastName: 'Annunzi'}
   ];
 
+  // createUser(user: User) {
+  //   this.users.push(new User(user._id, user.username, user.password, user.firstName, user.lastName));
+  // }
+
   createUser(user: any) {
     user._id = Math.random().toString();
     this.users.push(user);
     console.log(this.users);
   }
+
 
   //  findUserByCredential(username: String, password: String) {
   //   return this.users.find( function (user) {
