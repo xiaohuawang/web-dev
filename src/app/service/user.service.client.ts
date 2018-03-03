@@ -4,14 +4,16 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class UserService {
   users: User[] = [
-    {_id: '123', username: 'alice',    password: 'alice',    firstName: 'Alice',  lastName: 'Wonder'  },
-    {_id: '234', username: 'bob',      password: 'bob',      firstName: 'Bob',    lastName: 'Marley'  },
-    {_id: '345', username: 'charly',   password: 'charly',   firstName: 'Charly', lastName: 'Garcia'  },
-    {_id: '456', username: 'jannunzi', password: 'jannunzi', firstName: 'Jose',   lastName: 'Annunzi' }
+    {_id: '123', username: 'alice', password: 'alice', firstName: 'Alice', lastName: 'Wonder'},
+    {_id: '234', username: 'bob', password: 'bob', firstName: 'Bob', lastName: 'Marley'},
+    {_id: '345', username: 'charly', password: 'charly', firstName: 'Charly', lastName: 'Garcia'},
+    {_id: '456', username: 'jannunzi', password: 'jannunzi', firstName: 'Jose', lastName: 'Annunzi'}
   ];
 
-  createUser(user: User) {
-    this.users.push(new User(user._id, user.username, user.password, user.firstName, user.lastName));
+  createUser(user: any) {
+    user._id = Math.random().toString();
+    this.users.push(user);
+    console.log(this.users);
   }
 
   //  findUserByCredential(username: String, password: String) {
