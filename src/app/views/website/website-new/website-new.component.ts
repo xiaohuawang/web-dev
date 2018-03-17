@@ -25,22 +25,38 @@ export class WebsiteNewComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(
       (params: any) => {
-        this.userId = params['uid'];
+        // this.userId = params['uid'];
+        this.userId = params.uid;
         // this.websiteId = params['wid'];
+        return this.websiteService.findWebsitesByUser(this.userId).subscribe(
+          (websites: Website[]) => {
+            this.websites = websites;
+          }
+        );
       }
     );
-    this.websites = this.websiteService.findWebsitesByUser(this.userId);
+    // this.websites = this.websiteService.findWebsitesByUser(this.userId);
   }
 
-  createNewWebsite(newWebsite) {
+  createNewWebsite(website) {
     console.log('hello create new website');
-    console.log('website new----- new website name= ' + newWebsite.name);
-    console.log('website new----- new website description =' + newWebsite.description);
-    newWebsite.developerId = this.userId;
-    this.websiteService.createWebsite(this.userId, newWebsite);
-    const url: String = '/user/' + this.userId + '/website';
-    console.log('new website -------- url = ' + url);
-    this.router.navigate([url]);
+    console.log('website new----- new website name= ' + website.name);
+    console.log('website new----- new website description =' + website.description);
+    // website.developerId = this.userId;
+    if (website.name.trim() !== '' && website.description.trim() !== '') {
+      this.websiteService.createWebsite(this.userId, website).subscribe(
+        (website: Website) => {
+          const url: any = '/user/' + this.userId + '/website';
+          this.router.navigate([url]);
+        },
+        (error: any) => {
+        }
+      );
+    }
+    // this.websiteService.createWebsite(this.userId, newWebsite);
+    // const url: String = '/user/' + this.userId + '/website';
+    // console.log('new website -------- url = ' + url);
+    // this.router.navigate([url]);
     // console.log('size= ' + this.websites.length);
   }
 }

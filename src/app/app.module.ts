@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {routing} from './app.routing';
 
 import {AppComponent} from './app.component';
-
 import {LoginComponent} from './views/user/login/login.component';
 import {ProfileComponent} from './views/user/profile/profile.component';
 import {RegisterComponent} from './views/user/register/register.component';
@@ -23,9 +22,9 @@ import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit.compon
 import {WidgetListComponent} from './views/widget/widget-list/widget-list.component';
 import {PageService} from './service/page.service.client';
 import {WidgetService} from './service/widget.service.client';
-import { WidgetHeaderComponent } from './views/widget/widget-edit/widget-header/widget-header.component';
-import { WidgetImageComponent } from './views/widget/widget-edit/widget-image/widget-image.component';
-import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
+import {WidgetHeaderComponent} from './views/widget/widget-edit/widget-header/widget-header.component';
+import {WidgetImageComponent} from './views/widget/widget-edit/widget-image/widget-image.component';
+import {WidgetYoutubeComponent} from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
 
 @NgModule({
   declarations: [

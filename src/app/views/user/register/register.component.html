@@ -3,33 +3,77 @@
     {{errorMsg}}
   </div>
   <h1>Register</h1>
-  <form (ngSubmit)="register()" #f="ngForm">
+  <form (ngSubmit)="register(username,password,verifyPassword)" #f="ngForm">
 
     <div class="form-group">
-      <input type="text" name="username" placeholder="username" class="form-control" ngModel required #username="ngModel">
+      <input [(ngModel)]="username" type="text" name="username" placeholder="username" class="form-control">
     </div>
-    <span class="help-block" *ngIf="!username.valid && username.touched">
-      Please enter username!
-    </span>
+    <!--<span class="help-block" *ngIf="!username.valid && username.touched">-->
+      <!--Please enter username!-->
+    <!--</span>-->
 
     <div class="form-group">
-      <input type="password" name="password" placeholder="password" class="form-control" ngModel required #password="ngModel">
+      <input [(ngModel)]="password" type="text" name="password" placeholder="password" class="form-control">
     </div>
-    <span class="help-block" *ngIf="!password.valid && password.touched">
-      Please enter password!
-    </span>
+    <!--<span class="help-block" *ngIf="!password.valid && password.touched">-->
+      <!--Please enter password!-->
+    <!--</span>-->
     <div class="form-group">
-      <input type="password" name="verifyPassword" placeholder="verify password" class="form-control" ngModel required #verifyPassword="ngModel">
+      <input [(ngModel)]="verifyPassword" type="password" name="verifyPassword" placeholder="verify password" class="form-control">
     </div>
-    <span class="help-block" *ngIf="!verifyPassword.valid && verifyPassword.touched">
-      Please enter verify password!
-    </span>
-
+    <!--<span class="help-block" *ngIf="!verifyPassword.valid && verifyPassword.touched">-->
+      <!--Please enter verify password!-->
+    <!--</span>-->
     <div class="form-group">
-      <button [disabled]="!f.valid" class="btn btn-primary btn-block">Register</button>
+      <button class="btn btn-primary btn-block">Register</button>
+      <!--<button [disabled]="!f.valid" class="btn btn-primary btn-block">Register</button>-->
     </div>
-    <div class="form-group">
+    <!--<div class="form-group">-->
       <a [routerLink]="['/login']" class="btn btn-danger btn-block">Cancel</a>
-    </div>
+    <!--</div>-->
   </form>
 </div>
+
+
+
+
+<!--<div class="container-fluid cl-body-padding">-->
+  <!--<div *ngIf="errorFlag" class="alert alert-danger">-->
+    <!--{{errorMsg}}-->
+  <!--</div>-->
+  <!--<h1>Register</h1>-->
+  <!--<form (ngSubmit)="register(username, password, verifyPassword)" #f="ngForm">-->
+
+    <!--<div class="form-group">-->
+      <!--<input [(ngModel)]="username" type="text" name="username" placeholder="username" class="form-control">-->
+    <!--</div>-->
+    <!--&lt;!&ndash; <span class="help-block" *ngIf="!username.valid && username.touched">-->
+      <!--Please enter username!-->
+    <!--</span> &ndash;&gt;-->
+
+    <!--<div class="form-group">-->
+      <!--<input [(ngModel)]="password" type="password" name="password" placeholder="password" class="form-control">-->
+    <!--</div>-->
+    <!--&lt;!&ndash; <span class="help-block" *ngIf="!password.valid && password.touched">-->
+      <!--Please enter password!-->
+    <!--</span> &ndash;&gt;-->
+    <!--<div class="form-group">-->
+      <!--<input [(ngModel)]="verifyPassword" type="password" name="verifyPassword" placeholder="verify password" class="form-control">-->
+    <!--</div>-->
+    <!--&lt;!&ndash; <span class="help-block" *ngIf="!verifyPassword.valid && verifyPassword.touched">-->
+      <!--Please enter verify password!-->
+    <!--</span> &ndash;&gt;-->
+
+    <!--<div class="form-group">-->
+      <!--<button class="btn btn-primary btn-block">Register</button>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash; <div class="form-group">-->
+      <!--<button [disabled]="!f.valid" class="btn btn-primary btn-block">Register</button>-->
+    <!--</div> &ndash;&gt;-->
+    <!--&lt;!&ndash; <div class="form-group">-->
+      <!--<a [routerLink]="['/login']" class="btn btn-danger btn-block">Cancel</a>-->
+    <!--</div> &ndash;&gt;-->
+  <!--</form>-->
+  <!--<a [routerLink]="['/login']" class="btn btn-danger btn-block">Cancel</a>-->
+<!--</div>-->

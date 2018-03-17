@@ -22,38 +22,50 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {
   }
 
-  /*login(username: String, password: String) {
-    //alert('username: ' + username);
-   // if (username === 'alice' && password == "qqq") {
-      const user: User = this.userService.findUserByCredential(username, password);
-      if (user) {
-        this.router.navigate(['/profile', user._id ]);
-      }
-   // }
-  }*/
-
-  login() {
-    this.username = this.loginForm.value.username;
-    this.password = this.loginForm.value.password;
-    // console.log(this.username);
-    // console.log(this.password);
-    alert(this.username);
-
-    const user: User = this.userService.findUserByCredentials(this.username, this.password);
-    if (user) {
-      console.log('login-----success');
-      console.log('login-----username' + this.username);
-      console.log('login-----password' + this.password);
-      // this.router.navigate(['/profile']);
-      // this.router.navigate(['/profile/123']);
-      this.router.navigate(['/user', user._id]);
-    } else {
-      this.errorFlag = true;
-      console.log('login-----fail');
-    }
-  }
-
   ngOnInit() {
   }
 
+  login(username: String, password: String) {
+    if (username.trim() === '') {
+      this.errorMsg = 'Username cannot be empty';
+      this.errorFlag = true;
+    }
+    if (password.trim() === '') {
+      this.errorMsg = 'Password cannot be empty';
+      this.errorFlag = true;
+    }
+    // this.username = this.loginForm.value.username;
+    // this.password = this.loginForm.value.password;
+    // console.log(this.username);
+    // console.log(this.password);
+    alert(this.username);
+    if (!this.errorFlag) {
+      this.userService.findUserByCredentials(username, password)
+        .subscribe(
+          (user: User) => {
+            this.errorFlag = false;
+            console.log(user);
+            this.router.navigate(['/user', user._id]);
+          },
+          (error: any) => {
+            this.errorFlag = true;
+            this.errorMsg = error;
+            console.log('this is error message = ' + this.errorMsg);
+          }
+        );
+    }
+  }
+
+  // const user: User = this.userService.findUserByCredentials(this.username, this.password);
+  // if (user) {
+  //   console.log('login-----success');
+  //   console.log('login-----username' + this.username);
+  //   console.log('login-----password' + this.password);
+  //   // this.router.navigate(['/profile']);
+  //   // this.router.navigate(['/profile/123']);
+  //   this.router.navigate(['/user', user._id]);
+  // } else {
+  //   this.errorFlag = true;
+  //   console.log('login-----fail');
+  // }
 }

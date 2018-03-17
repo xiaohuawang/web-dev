@@ -10,8 +10,8 @@ import {WebsiteService} from '../../../service/website.service.client';
 })
 export class WebsiteEditComponent implements OnInit {
 
-  website: Website;
-  updatedWebsite: Website;
+  // website: Website;
+  updatedWebsite: Website = {_id: '', name: '', developerId: '', description: ''};
   websites: Website[] = [];
   websiteId: String;
   developerId: String;
@@ -21,33 +21,64 @@ export class WebsiteEditComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(
-      (params: any) => {
+      params => {
         this.websiteId = params['wid'];
         this.developerId = params['uid'];
+        this.websiteService.findWebsitesByUser(this.developerId).subscribe(
+          (websites: Website[]) => {
+            this.websites = websites;
+          },
+          (error: any) => {
+          }
+        );
+        this.websiteService.findWebsitesById(this.websiteId).subscribe(
+          (website: Website) => {
+            this.updatedWebsite = website;
+          },
+          (error: any) => {
+          }
+        );
       }
     );
-    this.websites = this.websiteService.findWebsitesByUser(this.developerId);
-    this.updatedWebsite = this.websiteService.findWebsitesById(this.websiteId);
+    // this.updatedWebsite = this.websiteService.findWebsitesById(this.websiteId);
+
+
     // console.log('test-----' + this.updatedWebsite.name);
   }
-  updateWebsite(updatedWebsite) {
+
+  // stop here (update website)
+  updateWebsite(website) {
     console.log('hello updateeeeeeeeee');
     console.log('website edit----- dev id = ' + this.developerId);
-    console.log('website edit----- updatedWebsite name = ' + updatedWebsite.name);
-    console.log('website edit----- updatedWebsite description = ' + updatedWebsite.description);
+    console.log('website edit----- updatedWebsite name = ' + website.name);
+    console.log('website edit----- updatedWebsite description = ' + website.description);
 
-    if (updatedWebsite.name.trim() !== '') {
-      updatedWebsite.developerId = this.developerId;
-      this.websiteService.updateWebsite(updatedWebsite._id, updatedWebsite);
-      const url: any = '/user/' + this.developerId + '/website';
-      this.router.navigate([url]);
-      console.log('website edit url= ' + url);
+    if (website.name.trim() !== '' && website.description.trim() !== '') {
+      // website.developerId = this.developerId;
+      this.websiteService.updateWebsite(website._id, website).subscribe(
+        (website: Website) => {
+          const url: String = '/user/' + this.developerId + '/website';
+          this.router.navigate([url]);
+        },
+        (error: any) => {
+        }
+      );
+      // const url: any = '/user/' + this.developerId + '/website';
+      // this.router.navigate([url]);
+      // console.log('website edit url= ' + url);
     }
   }
+
   deleteWebsite() {
-    console.log('hello, here is the delete funcion');
-    this.websiteService.deleteWebsite(this.websiteId);
-    const url: String = '/user/' + this.developerId + '/website';
-    this.router.navigate([url]);
+    console.log('hello, here is the delete funcion in website-edit.component');
+    this.websiteService.deleteWebsite(this.websiteId).subscribe(
+      (website: Website) => {
+        const url: String = '/user/' + this.developerId + '/website';
+        this.router.navigate([url]);
+      },
+      (error: any) => {}
+    );
+    // const url: String = '/user/' + this.developerId + '/website';
+    // this.router.navigate([url]);
   }
 }
