@@ -22,6 +22,30 @@
 <div class="container cl-container-padding">
   <div *ngFor="let widget of widgets">
     <!--{{widget.widgetType}}-->
+    <div *ngIf="!(widget.widgetType!== 'HTML')">
+      <div class="pull-right">
+        <a [routerLink]="['/#']" class="pull-right">
+          <span class="glyphicon glyphicon-menu-hamburger"></span>
+        </a>
+        <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}">
+          <span class="glyphicon glyphicon-cog"></span>
+        </a>
+      </div>
+      <h1>Html: {{widget.name}}</h1>
+    </div>
+
+    <div *ngIf="!(widget.widgetType !== 'TEXT')">
+      <div class="pull-right">
+        <a [routerLink]="['/#']" class="pull-right">
+          <span class="glyphicon glyphicon-menu-hamburger"></span>
+        </a>
+        <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}">
+          <span class="glyphicon glyphicon-cog"></span>
+        </a>
+      </div>
+      <h1>Text: {{widget.name}}</h1>
+    </div>
+
     <div *ngIf="!(widget.widgetType!='HEADER')">
       <div class="pull-right">
         <a routerLink="." class="pull-right">
@@ -34,19 +58,34 @@
       <h1>{{widget.text}}</h1>
     </div>
 
-    <div *ngIf="!(widget.widgetType!='IMAGE')">
+    <div *ngIf="!(widget.widgetType != 'IMAGE')">
       <div>
-        <a routerLink="." class="pull-right">
+        <a [routerLink]="['/#']" class="pull-right">
           <span class="glyphicon glyphicon-menu-hamburger"></span>
         </a>
         <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}" class="pull-right">
           <span class="glyphicon glyphicon-cog"></span>
         </a>
-        <img class="img-responsive cl-widget-images" src="{{widget.url}}" alt="alt" width="{{widget.width}}">
-        <!--<h1>{{widget.url}}</h1>-->
-        <!--<h1>{{widget.width}}</h1>-->
+        <img class="img-responsive img-rounded cl-widget-images" src="{{widget.url}}">
+        <!--<img class="img-responsive img-rounded cl-widget-images" src="{{baseUrl}}/api/image/{{widget.url}}" alt="alt" width="{{widget.width}}">-->
+        <!--<h1>url {{widget.url}}</h1>-->
+        <!--<h1>widget id {{widget._id}}</h1>-->
       </div>
+      <br>
     </div>
+    <!--<div *ngIf="!(widget.widgetType!='IMAGE')">-->
+      <!--<div>-->
+        <!--<a routerLink="." class="pull-right">-->
+          <!--<span class="glyphicon glyphicon-menu-hamburger"></span>-->
+        <!--</a>-->
+        <!--<a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}" class="pull-right">-->
+          <!--<span class="glyphicon glyphicon-cog"></span>-->
+        <!--</a>-->
+        <!--<img class="img-responsive cl-widget-images" src="{{widget.url}}" alt="alt" width="{{widget.width}}">-->
+        <!--&lt;!&ndash;<h1>{{widget.url}}</h1>&ndash;&gt;-->
+        <!--&lt;!&ndash;<h1>{{widget.width}}</h1>&ndash;&gt;-->
+      <!--</div>-->
+    <!--</div>-->
 
     <div *ngIf="!(widget.widgetType!='YOUTUBE')">
       <div class="embed-responsive embed-responsive-16by9">
@@ -62,7 +101,6 @@
       <!--<h1>{{widget.url}}</h1>-->
       <!--<h1>{{widget.width}}</h1>-->
     </div>
-
   </div>
 </div>
 

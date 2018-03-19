@@ -17,12 +17,13 @@ export class LoginComponent implements OnInit {
   username: String; // see usage as two-way data binding
   password: String; // see usage as two-way data binding
   errorFlag: boolean;
-  errorMsg = 'Invalid username or password !';
+  errorMsg: String;
 
   constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
+    this.errorFlag = false;
   }
 
   login(username: String, password: String) {
@@ -43,13 +44,14 @@ export class LoginComponent implements OnInit {
       this.userService.findUserByCredentials(username, password)
         .subscribe(
           (user: User) => {
-            this.errorFlag = false;
-            console.log(user);
-            this.router.navigate(['/user', user._id]);
+              this.errorFlag = false;
+              console.log(user);
+              this.router.navigate(['/user', user._id]);
           },
           (error: any) => {
             this.errorFlag = true;
-            this.errorMsg = error;
+            this.errorMsg = 'Invalid username or password !';
+            // this.errorMsg = error;
             console.log('this is error message = ' + this.errorMsg);
           }
         );

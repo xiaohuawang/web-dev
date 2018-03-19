@@ -1,4 +1,5 @@
 <div [ngSwitch]="widget.widgetType">
+  <!--<div [ngSwitch]="123">-->
 
   <div *ngSwitchCase="'HEADER'">
     <app-widget-header></app-widget-header>
@@ -12,4 +13,16 @@
     <app-widget-youtube></app-widget-youtube>
   </div>
 
+  <div *ngSwitchCase="'HTML'">
+    <app-widget-html></app-widget-html>
+  </div>
+
+  <div *ngSwitchCase="'TEXT'">
+    <app-widget-text></app-widget-text>
+  </div>
+
 </div>
+
+<!--<div>-->
+<!--{{widget.widgetType}}-->
+<!--</div>-->
