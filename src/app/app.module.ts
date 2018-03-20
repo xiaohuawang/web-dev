@@ -1,6 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {routing} from './app.routing';
+import {QuillEditorModule} from 'ngx-quill-editor';
 
 import {AppComponent} from './app.component';
 import {LoginComponent} from './views/user/login/login.component';
@@ -25,9 +26,9 @@ import {WidgetService} from './service/widget.service.client';
 import {WidgetHeaderComponent} from './views/widget/widget-edit/widget-header/widget-header.component';
 import {WidgetImageComponent} from './views/widget/widget-edit/widget-image/widget-image.component';
 import {WidgetYoutubeComponent} from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
-import { WidgetHtmlComponent } from './views/widget/widget-edit/widget-html/widget-html.component';
-import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widget-text.component';
-
+import {WidgetHtmlComponent} from './views/widget/widget-edit/widget-html/widget-html.component';
+import {WidgetTextComponent} from './views/widget/widget-edit/widget-text/widget-text.component';
+import {SortableDirective} from '../../assignment/directives/sortable.directive';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widg
     WidgetChooserComponent,
     WidgetEditComponent,
     WidgetListComponent,
+    SortableDirective,
     WidgetHeaderComponent,
     WidgetImageComponent,
     WidgetYoutubeComponent,
@@ -55,7 +57,8 @@ import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widg
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    QuillEditorModule
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService],
   bootstrap: [AppComponent]

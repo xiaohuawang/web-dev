@@ -257,6 +257,18 @@ export class WidgetService {
     );
   }
 
+  orderWidgets(startIndex, endIndex, pageId) {
+    console.log('client side order widget');
+    const url = this.baseUrl + '/api/page/' + pageId + '/widget?initial=' + startIndex + '&final=' + endIndex;
+    console.log('order widget url= ' + url);
+    return this.http.put(url, '').map(
+      (res: Response) => {
+        const data = res;
+        return data;
+      }
+    );
+  }
+
   findImage(imageName: String) {
     console.log('client side find image----');
     const url = this.baseUrl + '/api/image/' + imageName;

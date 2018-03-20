@@ -1,11 +1,11 @@
 module.exports = function (app) {
   app.post("/api/user", createUser);
   app.get("/api/user", findUser);
-  // app.get("/api/user?username=username", findUserByUsername);
-  // app.get("/api/user?username=username&password=password", findUserByCredentials);
   app.get("/api/user/:userId", findUserById);
   app.put("/api/user/:userId", updateUser);
   app.delete("/api/user/:userId", deleteUser);
+  // app.get("/api/user?username=username", findUserByUsername);
+  // app.get("/api/user?username=username&password=password", findUserByCredentials);
 
   var users = [
     {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonderland"},
@@ -31,8 +31,18 @@ module.exports = function (app) {
 
   function findUser(req, res) {
 
+    console.log('server side find user');
     var username = req.query["username"];
     var password = req.query["password"];
+
+    var user = null;
+
+    // if (username && password) {
+    //   user = users.find(function (user) {
+    //     return user.username === username && user.password === password;
+    //   });
+    // }
+    // res.json(user);
 
     for (var i = 0; i < users.length; i++) {
       if (users[i].username === username && users[i].password === password) {

@@ -6,11 +6,11 @@ module.exports = function (app) {
   // var baseUrl = "http://localhost:3100";
   var baseUrl = "https://xiaohuawebapp.herokuapp.com";
   // var baseUrl = "http://localhost:3100";
-  // var baseUrl="";
+  // var baseUrl = "";
 
   app.post("/api/page/:pageId/widget", createWidget);
   app.get("/api/page/:pageId/widget", findAllWidgetsAllPage);
-  // app.put("/api/page/:pageId/widget", reorderWidgets);
+  app.put("/api/page/:pageId/widget", orderWidgets);
   app.get("/api/widget/:widgetId", findWidgetById);
   app.put("/api/widget/:widgetId", updateWidget);
   app.delete("/api/widget/:widgetId", deleteWidget);
@@ -80,7 +80,8 @@ module.exports = function (app) {
       pageId: '321',
       size: '',
       text: 'This is xiaohua speaking!!!',
-      url: 'http://imgsrc.baidu.com/forum/w%3D580/sign=14b16fbbd562853592e0d229a0ee76f2/dc433a1f95cad1c82867e96e7f3e6709c83d51ac.jpg',
+      // url: 'http://imgsrc.baidu.com/forum/w%3D580/sign=14b16fbbd562853592e0d229a0ee76f2/dc433a1f95cad1c82867e96e7f3e6709c83d51ac.jpg',
+      url: 'http://a2.att.hudong.com/81/59/01300001255202131795598214211.jpg',
       width: '100%',
       height: 100,
       rows: 0,
@@ -114,7 +115,7 @@ module.exports = function (app) {
       pageId: "321",
       size: "",
       text: "666",
-      url: "/assets/uploads/832774d6dfd8be90fba28c29571c6349",
+      url: "/assets/uploads/0c4ae086e713e0df992f66581bcd47df",
       // url: "/assets/uploads/832774d6dfd8be90fba28c29571c6349",
       width: "",
       height: 100,
@@ -132,7 +133,7 @@ module.exports = function (app) {
       pageId: "321",
       size: "",
       text: "666",
-      url: "/assets/uploads/a87d8c5aca592cfdfceb41db444cf8ae",
+      url: "/assets/uploads/2d66ab8458b9caff64895eb45aba5c1b",
       width: "",
       height: 100,
       rows: 0,
@@ -361,4 +362,36 @@ module.exports = function (app) {
     }
     res.status(404).send("Widget ID cannot be found.");
   }
+
+  function orderWidgets(req, res) {
+    console.log('server side order widget');
+    var pageId = req.params.pageId;
+    var start = parseInt(req.query.initial);
+    var end = parseInt(req.query.final);
+
+    // console.log('pageId = ' + pageId);
+    moveWidget(widgets, start, end);
+
+    res.sendStatus(200);
+  }
+
+  function moveWidget(widgets, startIndex, endIndex) {
+    while (startIndex < 0) {
+      startIndex = startIndex + widgets.length;
+    }
+    while (endIndex < 0) {
+      endIndex = endIndex + widgets.length;
+    }
+
+    if (endIndex >= widgets.length) {
+      var k = endIndex - widgets.length + 1;
+      while (k--) {
+        widgets.push(undefined);
+      }
+    }
+    widgets.splice(endIndex, 0, widgets.splice(startIndex, 1)[0]);
+    // return widgets;
+    console.log('new widget = ' + widgets);
+  }
+
 }

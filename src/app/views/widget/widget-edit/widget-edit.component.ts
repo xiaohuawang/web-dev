@@ -14,7 +14,10 @@ import {WebsiteService} from '../../../service/website.service.client';
 })
 export class WidgetEditComponent implements OnInit {
 
-  widget: Widget;
+  widget: Widget = {
+    _id: '', widgetType: '', name: 'name', pageId: '', size: '1', text: '', url: '', width: '100%',
+    height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: ''
+  };
   widgetId: String;
   userId: String;
   websiteId: String;

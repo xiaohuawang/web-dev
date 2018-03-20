@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.errorFlag = false;
+    this.errorFlag = false;
   }
 
   login(username: String, password: String) {
@@ -40,23 +41,24 @@ export class LoginComponent implements OnInit {
     // console.log(this.username);
     // console.log(this.password);
     alert(this.username);
-    if (!this.errorFlag) {
-      this.userService.findUserByCredentials(username, password)
-        .subscribe(
-          (user: User) => {
-              this.errorFlag = false;
-              console.log(user);
-              this.router.navigate(['/user', user._id]);
-          },
-          (error: any) => {
-            this.errorFlag = true;
-            this.errorMsg = 'Invalid username or password !';
-            // this.errorMsg = error;
-            console.log('this is error message = ' + this.errorMsg);
-          }
-        );
-    }
+    // if (!this.errorFlag) {
+    this.userService.findUserByCredentials(username, password)
+      .subscribe(
+        (user: User) => {
+          this.errorFlag = false;
+          console.log(user);
+          this.router.navigate(['/user', user._id]);
+        },
+        (error: any) => {
+          this.errorFlag = true;
+          this.errorMsg = 'Invalid username or password !';
+          // this.errorMsg = error;
+          console.log('this is error message = ' + this.errorMsg);
+        }
+      );
   }
+
+  // }
 
   // const user: User = this.userService.findUserByCredentials(this.username, this.password);
   // if (user) {

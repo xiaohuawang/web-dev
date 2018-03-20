@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import { DomSanitizer } from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
 import {Widget} from '../../../model/widget.model.client';
 import {WidgetService} from '../../../service/widget.service.client';
 import {PageService} from '../../../service/page.service.client';
@@ -22,16 +22,16 @@ export class WidgetListComponent implements OnInit {
   websiteId: String;
   pageId: String;
   widgets: Widget[] = [];
+
   // baseUrl = environment.baseUrl;
 
-  constructor(
-    private widgetService: WidgetService,
-    private pageService: PageService,
-    private websiteService: WebsiteService,
-    private userService: UserService,
-    private activatedRoute: ActivatedRoute,
-    private sanitizer: DomSanitizer
-  ) { }
+  constructor(private widgetService: WidgetService,
+              private pageService: PageService,
+              private websiteService: WebsiteService,
+              private userService: UserService,
+              private activatedRoute: ActivatedRoute,
+              private sanitizer: DomSanitizer) {
+  }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(
@@ -39,12 +39,15 @@ export class WidgetListComponent implements OnInit {
         this.pageService.findPageById(params.pid).subscribe(
           (page: Page) => {
             if (page.websiteId === params.wid) {
+              // console.log(1);
               this.websiteService.findWebsitesById(page.websiteId).subscribe(
                 (website: Website) => {
                   if (website.developerId === params.uid) {
+                    // console.log(2);
                     this.userId = params.uid;
                     this.websiteId = params.wid;
                     this.pageId = params.pid;
+                    // console.log('pageid= ' + this.pageId);
                     this.widgetService.findWidgetsByPageId(this.pageId).subscribe(
                       (widgets: Widget[]) => {
                         this.widgets = widgets;
@@ -65,8 +68,20 @@ export class WidgetListComponent implements OnInit {
         );
       }
     );
+    // console.log('widget list pid = ' + this.pageId);
     // this.widgets = this.widgetService.findWidgetsByPageId(this.pageId);
   }
+
+  orderWidgets(indexes) {
+    console.log('widget list pid = ' + this.pageId);
+    console.log('widget list order widget.ts');
+    // call widget service function to update widget as per index
+    this.widgetService.orderWidgets(indexes.startIndex, indexes.endIndex, this.pageId)
+      .subscribe(
+        (data) => console.log(data)
+      );
+  }
+
   modifyYoutubeUrl(url) {
     // console.log('youtube url before = ' + url);
     const youtubeUrl = url.replace('youtu.be', 'youtube.com/embed');
