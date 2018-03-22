@@ -232,7 +232,8 @@ module.exports = function (app) {
         widget = widgets[i];
       }
     }
-    widget.url = '/assets/uploads/' + filename;
+    widget.url= '/uploads/' + filename;
+    // widget.url = '/assets/uploads/' + filename;
     // widget.url = '/assets/uploads/781ac686c0ca7138d8ef58406ede42a9';
     console.log('widgeturl = ' + widget.url);
 

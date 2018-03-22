@@ -68,6 +68,7 @@ export class RegisterComponent implements OnInit {
       );
       console.log('register username -----' + this.user.username);
       console.log('register password -----' + this.user.password);
+      // this.errorFlag = false;
       // console.log(this.userService.findUserByUsername(this.username)._id);
     }
   }
