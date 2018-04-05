@@ -11,8 +11,8 @@ import {WebsiteService} from '../../../service/website.service.client';
 export class WebsiteEditComponent implements OnInit {
 
   // website: Website;
-  updatedWebsite: Website = {_id: '', name: '', developerId: '', description: ''};
-  websites: Website[] = [];
+  updatedWebsite: any = {};
+  websites: any[];
   websiteId: String;
   developerId: String;
 
@@ -25,7 +25,7 @@ export class WebsiteEditComponent implements OnInit {
         this.websiteId = params['wid'];
         this.developerId = params['uid'];
         this.websiteService.findWebsitesByUser(this.developerId).subscribe(
-          (websites: Website[]) => {
+          (websites: any) => {
             this.websites = websites;
           },
           (error: any) => {
@@ -33,6 +33,7 @@ export class WebsiteEditComponent implements OnInit {
         );
         this.websiteService.findWebsitesById(this.websiteId).subscribe(
           (website: Website) => {
+            console.log(this.updatedWebsite);
             this.updatedWebsite = website;
           },
           (error: any) => {
@@ -56,7 +57,7 @@ export class WebsiteEditComponent implements OnInit {
     if (website.name.trim() !== '' && website.description.trim() !== '') {
       // website.developerId = this.developerId;
       this.websiteService.updateWebsite(website._id, website).subscribe(
-        (website: Website) => {
+        (website: any) => {
           const url: String = '/user/' + this.developerId + '/website';
           this.router.navigate([url]);
         },
@@ -72,7 +73,7 @@ export class WebsiteEditComponent implements OnInit {
   deleteWebsite() {
     console.log('hello, here is the delete funcion in website-edit.component');
     this.websiteService.deleteWebsite(this.websiteId).subscribe(
-      (website: Website) => {
+      (website: any) => {
         const url: String = '/user/' + this.developerId + '/website';
         this.router.navigate([url]);
       },

@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
 
   @ViewChild('f') registerForm: NgForm;
 
-  user: User = {_id: '', username: '', password: '', firstName: '', lastName: ''};
+  user: any = {};
   username: String;
   password: String;
   verifyPassword: String;
@@ -57,8 +57,9 @@ export class RegisterComponent implements OnInit {
       // this.router.navigate(['/user', this.userService.findUserByUsername(this.username)._id]);
 
       this.userService.createUser(this.user).subscribe(
-        (user: User) => {
+        (user: any) => {
           this.errorFlag = false;
+          console.log('register id -----' + this.user._id);
           this.router.navigate(['/user', user._id]);
         },
         (error: any) => {

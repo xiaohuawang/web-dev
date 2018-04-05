@@ -23,15 +23,21 @@
   <form>
     <div class="form-group">
       <label for="page-name">Name</label>
-      <input [(ngModel)]="newPage.name" type="text" class="form-control" name="name" id="page-name" placeholder="Page Name" ngModel required>
+      <input [(ngModel)]="newPage.name" type="text" class="form-control" name="name" id="page-name"
+             placeholder="Page Name" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="page-description">Title</label>
+      <input [(ngModel)]="newPage.title" type="text" class="form-control" name="title" id="page-title" placeholder="Page Title"
+             ngModel required>
     </div>
     <div class="form-group">
       <label for="page-description">Description</label>
-      <input [(ngModel)]="newPage.description" type="text" class="form-control" name="description" id="page-description" placeholder="Page Description" ngModel required>
+      <input [(ngModel)]="newPage.description" type="text" class="form-control" name="description" id="page-description"
+             placeholder="Page Description" ngModel required>
     </div>
   </form>
 </div>
-
 <nav class="navbar navbar-default navbar-fixed-bottom">
   <div class="container-fluid row">
     <div class="pull-right navbar-text">
@@ -44,30 +50,30 @@
 
 
 <!--<nav class="navbar navbar-fixed-top navbar-light bg-secondary">-->
-  <!--<a class="navbar-brand" routerLink="/user/{{userId}}/website/{{websiteId}}/page">-->
-    <!--<span class="glyphicon glyphicon-chevron-left text-dark"></span>-->
-  <!--</a>-->
-  <!--<div class="navbar-brand font-weight-bold">-->
-    <!--New Page-->
-  <!--</div>-->
-  <!--<a class="btn navbar-brand pull-right" (click)="createNewPage(newPage)">-->
-    <!--<span class="glyphicon glyphicon-ok text-dark"></span>-->
-  <!--</a>-->
+<!--<a class="navbar-brand" routerLink="/user/{{userId}}/website/{{websiteId}}/page">-->
+<!--<span class="glyphicon glyphicon-chevron-left text-dark"></span>-->
+<!--</a>-->
+<!--<div class="navbar-brand font-weight-bold">-->
+<!--New Page-->
+<!--</div>-->
+<!--<a class="btn navbar-brand pull-right" (click)="createNewPage(newPage)">-->
+<!--<span class="glyphicon glyphicon-ok text-dark"></span>-->
+<!--</a>-->
 <!--</nav>-->
 <!--<div class="container-fluid cl-body-padding">-->
-  <!--<form>-->
-    <!--<div class="form-group">-->
-      <!--<label for="name">Name</label>-->
-      <!--<input [(ngModel)]="newPage.name" type="text" class="form-control" id="name" name="name" placeholder="Page Name" ngModel required>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="title">Title</label>-->
-      <!--<input [(ngModel)]="newPage.description" type="text" class="form-control" id="title" name="title" placeholder="Page Title" ngModel required>-->
-    <!--</div>-->
-  <!--</form>-->
+<!--<form>-->
+<!--<div class="form-group">-->
+<!--<label for="name">Name</label>-->
+<!--<input [(ngModel)]="newPage.name" type="text" class="form-control" id="name" name="name" placeholder="Page Name" ngModel required>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="title">Title</label>-->
+<!--<input [(ngModel)]="newPage.description" type="text" class="form-control" id="title" name="title" placeholder="Page Title" ngModel required>-->
+<!--</div>-->
+<!--</form>-->
 <!--</div>-->
 <!--<nav class="navbar navbar-fixed-bottom navbar-light bg-secondary">-->
-  <!--<a class="navbar-brand pull-right" routerLink="/user/{{userId}}">-->
-    <!--<span class="glyphicon glyphicon-user text-primary"></span>-->
-  <!--</a>-->
+<!--<a class="navbar-brand pull-right" routerLink="/user/{{userId}}">-->
+<!--<span class="glyphicon glyphicon-user text-primary"></span>-->
+<!--</a>-->
 <!--</nav>-->

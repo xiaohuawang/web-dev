@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Widget} from '../../../../model/widget.model.client';
+// import {Widget} from '../../../../model/widget.model.client';
 import {WidgetService} from '../../../../service/widget.service.client';
 import {PageService} from '../../../../service/page.service.client';
-import {Page} from '../../../../model/page.model.client';
+// import {Page} from '../../../../model/page.model.client';
 import {WebsiteService} from '../../../../service/website.service.client';
-import {Website} from '../../../../model/website.model.client';
+
+// import {Website} from '../../../../model/website.model.client';
 
 @Component({
   selector: 'app-widget-header',
@@ -18,10 +19,11 @@ export class WidgetHeaderComponent implements OnInit {
   websiteId: String;
   widgetId: String;
   pageId: String;
-  widget: Widget = {
-    _id: '', widgetType: '', name: 'name', pageId: '', size: '1', text: '', url: '', width: '100%',
-    height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: ''
-  };
+  // widget: Widget = {
+  //   _id: '', widgetType: '', name: 'name', pageId: '', size: '1', text: '', url: '', width: '100%',
+  //   height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: ''
+  // };
+  widget: any = {};
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -34,14 +36,18 @@ export class WidgetHeaderComponent implements OnInit {
     this.activatedRoute.params.subscribe(
       params => {
         this.widgetService.findWidgetById(params.wgid).subscribe(
-          (widget: Widget) => {
-            if (widget.pageId === params.pid) {
-              this.pageService.findPageById(widget.pageId).subscribe(
-                (page: Page) => {
-                  if (page.websiteId === params.wid) {
-                    this.websiteService.findWebsitesById(page.websiteId).subscribe(
-                      (website: Website) => {
+          (widget: any) => {
+            console.log('1');
+            if (widget._page === params.pid) {
+              console.log('2');
+              this.pageService.findPageById(widget._page).subscribe(
+                (page: any) => {
+                  if (page._websiteId === params.wid) {
+                    console.log('3');
+                    this.websiteService.findWebsitesById(page._websiteId).subscribe(
+                      (website: any) => {
                         if (website.developerId === params.uid) {
+                          console.log('4');
                           this.userId = params.uid;
                           this.websiteId = params.wid;
                           this.pageId = params.pid;
@@ -76,10 +82,10 @@ export class WidgetHeaderComponent implements OnInit {
   //   this.router.navigate([url]);
   // }
 
-  updateWidget(widget: Widget) {
+  updateWidget(widget: any) {
     console.log('this is update header widget in ts');
     this.widgetService.updateWidget(this.widgetId, widget).subscribe(
-      (widget: Widget) => {
+      (widget: any) => {
         const url: any = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
         this.router.navigate([url]);
       },
@@ -98,7 +104,7 @@ export class WidgetHeaderComponent implements OnInit {
   // }
   deleteWidget() {
     this.widgetService.deleteWidget(this.widgetId).subscribe(
-      (widget: Widget) => {
+      (widget: any) => {
         const url: any = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
         this.router.navigate([url]);
       },

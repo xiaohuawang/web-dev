@@ -15,9 +15,7 @@ export class Widget {
   formatted: Boolean;
   placeholder: String;
 
-  constructor(_id, type, name= '', pageId, size = '1', text = 'text', width = '100%', url = '') {
-  // constructor(_id: String, type: String, pageId: String, size: String = '1', text: String = 'text', width: String = '100%',
-  //             url: String = 'url') {
+  constructor(_id, type, name = '', pageId, size = '1', text = '', width = '100%', url = '') {
     this._id = _id;
     this.widgetType = type;
     this.name = name;

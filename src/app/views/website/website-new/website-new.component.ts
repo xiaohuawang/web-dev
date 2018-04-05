@@ -12,12 +12,12 @@ export class WebsiteNewComponent implements OnInit {
 
   userId: String;
   // websiteId: String;
-  websites: Website[] = [];
+  websites: any[];
   // _id: String;
   // name: String;
   // developId: String;
   // description: String;
-  newWebsite: Website = {_id: '', name: '', developerId: '', description: ''};
+  newWebsite: any = {};
 
   constructor(private websiteService: WebsiteService, private router: Router, private activatedRoute: ActivatedRoute) {
   }
@@ -27,9 +27,11 @@ export class WebsiteNewComponent implements OnInit {
       (params: any) => {
         // this.userId = params['uid'];
         this.userId = params.uid;
+        console.log('uid= ' + this.userId);
         // this.websiteId = params['wid'];
         return this.websiteService.findWebsitesByUser(this.userId).subscribe(
-          (websites: Website[]) => {
+          (websites: any[]) => {
+            console.log('len=' + websites.length);
             this.websites = websites;
           }
         );
@@ -45,7 +47,8 @@ export class WebsiteNewComponent implements OnInit {
     // website.developerId = this.userId;
     if (website.name.trim() !== '' && website.description.trim() !== '') {
       this.websiteService.createWebsite(this.userId, website).subscribe(
-        (website: Website) => {
+        (website: any) => {
+          console.log('website.name = ' + website.name);
           const url: any = '/user/' + this.userId + '/website';
           this.router.navigate([url]);
         },

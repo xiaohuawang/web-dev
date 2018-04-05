@@ -13,7 +13,7 @@
       </a>
     </div>
     <a class="navbar-brand cl-text-white cl-text-bold" href="#">
-      Widget Edit {{widget.widgetType}} {{widget.url}}
+      Widget Edit
     </a>
   </div>
 </nav>
@@ -50,9 +50,9 @@
     <input name="pageId" value="{{pageId}}" style="display: none" />
     <input name="userId" value="{{userId}}" style="display: none" />
     <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
-    <br/>
+    <br>
   </form>
-
+  <a class="btn btn-success btn-block" [routerLink]="['/user/'+userId+'/website/'+websiteId+'/page/'+pageId+'/widget/'+widgetId+'/flickr']">Flickr Image</a>
   <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
 </div>
 

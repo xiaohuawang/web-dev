@@ -23,11 +23,15 @@
   <form>
     <div class="form-group">
       <label for="page-name">Name</label>
-      <input [(ngModel)]="updatedPage.name" type="text" class="form-control" name="name" id="page-name" placeholder="Page Name">
+      <input [(ngModel)]="updatedPage.name" type="text" class="form-control" name="name" id="page-name" placeholder="Page Name" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="page-title">Title</label>
+      <input [(ngModel)]="updatedPage.title" type="text" class="form-control" name="title"id="page-title" placeholder="Page Title" ngModel required>
     </div>
     <div class="form-group">
       <label for="page-description">Description</label>
-      <input [(ngModel)]="updatedPage.description" type="text" class="form-control" name="description" id="page-description" placeholder="Page Description">
+      <input [(ngModel)]="updatedPage.description" type="text" class="form-control" name="description" id="page-description" placeholder="Page Description" ngModel required>
     </div>
   </form>
   <a class="btn btn-danger  btn-block" (click)="deletePage()">Delete</a>

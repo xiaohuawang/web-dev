@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-
 import {DomSanitizer} from '@angular/platform-browser';
-import {Widget} from '../../../model/widget.model.client';
+// import {Widget} from '../../../model/widget.model.client';
 import {WidgetService} from '../../../service/widget.service.client';
 import {PageService} from '../../../service/page.service.client';
 import {UserService} from '../../../service/user.service.client';
 import {WebsiteService} from '../../../service/website.service.client';
-import {Website} from '../../../model/website.model.client';
-import {Page} from '../../../model/page.model.client';
+// import {Website} from '../../../model/website.model.client';
+// import {Page} from '../../../model/page.model.client';
 import {environment} from '../../../../environments/environment';
 
 @Component({
@@ -21,7 +20,9 @@ export class WidgetListComponent implements OnInit {
   userId: String;
   websiteId: String;
   pageId: String;
-  widgets: Widget[] = [];
+  // widgets: Widget[];
+  widgets = [{}];
+  widget = {};
 
   // baseUrl = environment.baseUrl;
 
@@ -37,19 +38,21 @@ export class WidgetListComponent implements OnInit {
     this.activatedRoute.params.subscribe(
       params => {
         this.pageService.findPageById(params.pid).subscribe(
-          (page: Page) => {
-            if (page.websiteId === params.wid) {
-              // console.log(1);
-              this.websiteService.findWebsitesById(page.websiteId).subscribe(
-                (website: Website) => {
+          (page: any) => {
+            console.log('widget list page website id= ' + page._websiteId);
+            console.log('widget list page name= ' + page.name);
+            if (page._websiteId === params.wid) {
+              console.log(1);
+              this.websiteService.findWebsitesById(page._websiteId).subscribe(
+                (website: any) => {
                   if (website.developerId === params.uid) {
-                    // console.log(2);
+                    console.log(2);
                     this.userId = params.uid;
                     this.websiteId = params.wid;
                     this.pageId = params.pid;
                     // console.log('pageid= ' + this.pageId);
                     this.widgetService.findWidgetsByPageId(this.pageId).subscribe(
-                      (widgets: Widget[]) => {
+                      (widgets: any[]) => {
                         this.widgets = widgets;
                       },
                       (error: any) => {
@@ -72,7 +75,7 @@ export class WidgetListComponent implements OnInit {
     // this.widgets = this.widgetService.findWidgetsByPageId(this.pageId);
   }
 
-  orderWidgets(indexes) {
+  reorderWidgets(indexes) {
     console.log('widget list pid = ' + this.pageId);
     console.log('widget list order widget.ts');
     // call widget service function to update widget as per index
@@ -89,3 +92,5 @@ export class WidgetListComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(youtubeUrl);
   }
 }
+
+

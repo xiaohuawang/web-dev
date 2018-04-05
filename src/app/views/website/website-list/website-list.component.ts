@@ -12,7 +12,7 @@ import {Website} from '../../../model/website.model.client';
 export class WebsiteListComponent implements OnInit {
 
   userId: String;
-  websites: Website[] = [];
+  websites: any[];
 
   // websites: any[] = [{ _id: '', name: '', developerId: '', description: '' }];
   constructor(private websiteService: WebsiteService, private activatedRoute: ActivatedRoute) {
@@ -25,8 +25,9 @@ export class WebsiteListComponent implements OnInit {
         this.userId = params.uid;
         console.log('whats the user id = ' + this.userId);
         return this.websiteService.findWebsitesByUser(this.userId).subscribe(
-          (websites: Website[]) => {
-              this.websites = websites;
+          (websites: any[]) => {
+            console.log('websites.len= ' + websites.length);
+            this.websites = websites;
           }
         );
       }

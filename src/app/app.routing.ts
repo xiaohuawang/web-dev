@@ -11,6 +11,7 @@ import {PageEditComponent} from './views/page/page-edit/page-edit.component';
 import {WidgetListComponent} from './views/widget/widget-list/widget-list.component';
 import {WidgetChooserComponent} from './views/widget/widget-chooser/widget-chooser.component';
 import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit.component';
+import {FlickrImageComponent} from './views/widget/widget-edit/widget-image/flickr-image/flickr-image.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
   {path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent}
+  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid/flickr', component: FlickrImageComponent}
   // {path: 'user/:uid/website/:wid/page', component: PageListComponent},
   // {path: 'profile', component: ProfileComponent}
 ];

@@ -30,9 +30,11 @@ export class UserService {
   createUser(user: User) {
     console.log('client side user create');
     const url = this.baseUrl + '/api/user';
+    console.log('client side user id = ' + user._id);
     console.log('url= ' + url);
     return this.http.post(url, user).map(
       (res: Response) => {
+        console.log('res= ' + res);
         return res.json();
       }
     );

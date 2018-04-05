@@ -5,6 +5,7 @@ import {User} from '../../../model/user.model.client';
 
 import {ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
+import {Widget} from '../../../model/widget.model.client';
 
 
 @Component({
@@ -18,6 +19,8 @@ export class LoginComponent implements OnInit {
   password: String; // see usage as two-way data binding
   errorFlag: boolean;
   errorMsg: String;
+  Users: any[];
+
 
   constructor(private userService: UserService, private router: Router) {
   }
@@ -44,7 +47,7 @@ export class LoginComponent implements OnInit {
     // if (!this.errorFlag) {
     this.userService.findUserByCredentials(username, password)
       .subscribe(
-        (user: User) => {
+        (user: any) => {
           this.errorFlag = false;
           console.log(user);
           this.router.navigate(['/user', user._id]);

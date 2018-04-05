@@ -6,12 +6,17 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
 
+//add
+var connectionString = 'mongodb://xiaohua:a62811610@ds135399.mlab.com:35399/heroku_r3jrthjf'; // for heroku
+var mongoose = require("mongoose");
+mongoose.createConnection(connectionString);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Point static path to dist -- For building -- REMOVE
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use(express.static(path.join(__dirname, 'src/assests')));
+// app.use(express.static(path.join(__dirname, 'src/assests')));
 
 // CORS
 app.use(function (req, res, next) {

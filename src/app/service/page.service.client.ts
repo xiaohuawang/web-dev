@@ -11,12 +11,12 @@ export class PageService {
 
   baseUrl = environment.baseUrl;
 
-  pages: Page[] = [
-    {_id: '321', name: 'Post 1', websiteId: '456', description: 'Lorem'},
-    {_id: '432', name: 'Post 2', websiteId: '456', description: 'Lorem'},
-    {_id: '543', name: 'Post 3', websiteId: '456', description: 'Lorem'}
-
-  ];
+  // pages: Page[] = [
+  //   {_id: '321', name: 'Post 1', websiteId: '456', description: 'Lorem'},
+  //   {_id: '432', name: 'Post 2', websiteId: '456', description: 'Lorem'},
+  //   {_id: '543', name: 'Post 3', websiteId: '456', description: 'Lorem'}
+  //
+  // ];
 
   dumpPage() {
     return new Page(undefined, undefined, undefined, undefined);
@@ -78,8 +78,10 @@ export class PageService {
   findPageById(pageId: String) {
     console.log('client side find page by id');
     const url = this.baseUrl + '/api/page/' + pageId;
+    console.log('url=' + url);
     return this.http.get(url).map(
       (res: Response) => {
+        console.log('return res= ' + res.json().body);
         return res.json();
       }
     );

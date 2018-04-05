@@ -65,13 +65,12 @@
 //
 // }
 //
-
-
 import {Component, OnInit} from '@angular/core';
 import {RouterLink, ActivatedRoute, Router} from '@angular/router';
 
 import {UserService} from '../../../service/user.service.client';
 import {User} from '../../../model/user.model.client';
+
 
 @Component({
   selector: 'app-profile',
@@ -81,7 +80,7 @@ import {User} from '../../../model/user.model.client';
 export class ProfileComponent implements OnInit {
 
   // properties
-  user: User = {_id: '', username: '', password: '', firstName: '', lastName: ''};
+  user: any = {};
   userId: String;
   errorFlag: boolean;
   errorMessage: String;
@@ -96,8 +95,9 @@ export class ProfileComponent implements OnInit {
       this.userId = params.uid;
       console.log('user id= ' + this.userId);
       return this.userService.findUserById(this.userId).subscribe(
-        (user: User) => {
+        (user: any) => {
           this.user = user;
+          console.log('user username=' + user.username);
           console.log('profile get the user by uid');
         },
         (error: any) => {
@@ -110,9 +110,11 @@ export class ProfileComponent implements OnInit {
 
   updateUserInfo(updatedUser) {
     this.userService.updateUser(this.userId, updatedUser).subscribe(
-      (user: User) => {
+      (user: any) => {
+        console.log('profile user update user name = ' + user.username);
         this.errorFlag = false;
         this.user = user;
+        this.ngOnInit();
       },
       (error: any) => {
         this.errorFlag = true;
@@ -123,7 +125,7 @@ export class ProfileComponent implements OnInit {
 
   deleteUser() {
     this.userService.deleteUser(this.userId).subscribe(
-      (updatedUser: User) => {
+      (user: any) => {
         const url: any = '/login';
         this.router.navigate([url]);
       },

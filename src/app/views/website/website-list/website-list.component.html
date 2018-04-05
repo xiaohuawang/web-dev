@@ -11,7 +11,7 @@
 </nav>
 
 <div class="container">
-  <div *ngFor="let website of websites">
+  <div *ngFor="let website of websites ">
     <ul class="list-group cl-list-group-borderless">
       <a routerLink="/user/{{userId}}/website/{{website._id}}/page">{{website.name}}</a>
       <a class="pull-right" routerLink="/user/{{userId}}/website/{{website._id}}">
@@ -19,7 +19,6 @@
       </a>
     </ul>
   </div>
-</div>
 
 <nav class="navbar navbar-fixed-bottom navbar-light bg-primary">
   <a class="navbar-brand pull-right" routerLink="/user/{{userId}}">

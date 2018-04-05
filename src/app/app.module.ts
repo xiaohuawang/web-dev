@@ -29,6 +29,9 @@ import {WidgetYoutubeComponent} from './views/widget/widget-edit/widget-youtube/
 import {WidgetHtmlComponent} from './views/widget/widget-edit/widget-html/widget-html.component';
 import {WidgetTextComponent} from './views/widget/widget-edit/widget-text/widget-text.component';
 import {SortableDirective} from '../../assignment/directives/sortable.directive';
+import {FlickrImageComponent} from './views/widget/widget-edit/widget-image/flickr-image/flickr-image.component';
+import {FlickrService} from '../app/service/flickr.service.client';
+import {OrderByPipe} from './views/widget/widget-list/order-by-pipe.pipe';
 
 
 @NgModule({
@@ -52,6 +55,8 @@ import {SortableDirective} from '../../assignment/directives/sortable.directive'
     WidgetYoutubeComponent,
     WidgetHtmlComponent,
     WidgetTextComponent,
+    OrderByPipe,
+    FlickrImageComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +65,7 @@ import {SortableDirective} from '../../assignment/directives/sortable.directive'
     routing,
     QuillEditorModule
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

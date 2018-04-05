@@ -24,11 +24,13 @@
   <form>
     <div class="form-group">
       <label for="youtube-name">Name</label>
-      <input type="text" class="form-control" name="youtube-name" id="youtube-name" placeholder="Name">
+      <!--<input type="text" class="form-control" name="youtube-name" id="youtube-name" placeholder="Name">-->
+      <input [(ngModel)]="widget.name"class="form-control" name="youtube-name" id="youtube-name" placeholder="Name">
     </div>
     <div class="form-group">
       <label for="youtube-text">Text</label>
-      <input type="text" class="form-control" name="youtube-text" id="youtube-text" placeholder="Text">
+      <!--<input type="text" class="form-control" name="youtube-text" id="youtube-text" placeholder="Text">-->
+      <input [(ngModel)]="widget.text"class="form-control" name="youtube-text" id="youtube-text" placeholder="Text">
     </div>
     <div class="form-group">
       <label for="youtube-URL">URL</label>
