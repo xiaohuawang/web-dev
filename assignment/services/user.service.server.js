@@ -22,13 +22,13 @@ module.exports = function (app) {
 
 
   var facebookConfig = {
-    // clientID: process.env.FACEBOOK_CLIENT_ID,
-    // clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    // callbackURL: process.env.FACEBOOK_CALLBACK_URL
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL
 
-    clientID: 119189685556051,
-    clientSecret: '026788c161ba91cff18643771c75f1c0',
-    callbackURL: 'https://xiaohuawebapp.herokuapp.com/auth/facebook/callback'
+    // clientID: 119189685556051,
+    // clientSecret: '026788c161ba91cff18643771c75f1c0',
+    // callbackURL: 'https://xiaohuawebapp.herokuapp.com/auth/facebook/callback'
   };
 
 
