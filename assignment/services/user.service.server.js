@@ -1,3 +1,8 @@
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+var bcrypt = require("bcrypt-nodejs");
+
 module.exports = function (app) {
 
   var userModel = require("../models/user/user.model.server");
@@ -10,43 +15,162 @@ module.exports = function (app) {
   // app.get("/api/user?username=username", findUserByUsername);
   // app.get("/api/user?username=username&password=password", findUserByCredentials);
 
-  // var users = [
-  //   {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonderland"},
-  //   {_id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley"},
-  //   {_id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia"},
-  //   {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi"}
-  // ];
+  app.post("/api/login", passport.authenticate('local'), login);
+  app.post("/api/logout", logout);
+  app.post("/api/register", register);
+  app.post("/api/loggedIn", loggedIn);
 
 
-  // function createUser(req, res) {
-  //   var user = req.body;
-  //   for (var x = 0; x < users.length; x++) {
-  //     if (users[x].username === user["username"]) {
-  //       res.status(404).send('username already exist.');
-  //       return;
-  //     }
-  //   }
-  //
-  //   user._id = Math.random().toString();
-  //   users.push(user);
-  //   res.json(user);
-  // };
+  var facebookConfig = {
+    // clientID: process.env.FACEBOOK_CLIENT_ID,
+    // clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    // callbackURL: process.env.FACEBOOK_CALLBACK_URL
 
-  // function createUser(req, res) {
-  //   console.log('server side create user');
-  //   var newUser = req.body;
-  //   console.log('new user username= ' + newUser.username);
-  //   // console.log('new user username= ' + newUser.username);
-  //   // console.log('new user password= ' + newUser.password);
-  //   userModel.createUser(newUser)
-  //     .then(function (user) {
-  //       // console.log('here user id = ' + user.id);
-  //       res.json(user);
-  //     })
-  // }
+    clientID: 119189685556051,
+    clientSecret: '026788c161ba91cff18643771c75f1c0',
+    callbackURL: 'https://xiaohuawebapp.herokuapp.com/auth/facebook/callback'
+  };
+
+
+  // // use facebook login
+  app.get("/auth/facebook/callback",
+    passport.authenticate('facebook', {
+      successRedirect: '/profile',
+      failureRedirect: '/login'
+      // successRedirect: '/user',
+      // failureRedirect: '/login'
+    })
+  );
+
+  app.get("/facebook/login", passport.authenticate('facebook', {scope: 'email'}));
+
+  passport.use(new LocalStrategy(localStrategy));
+
+  function localStrategy(username, password, done) {
+    console.log('server side localStrategy');
+    userModel.findUserByUserName(username).then(
+      function (user) {
+        console.log('user= '+user);
+        if (user && bcrypt.compareSync(password, user.password)) {
+          return done(null, user);
+        } else {
+          console.log('else?');
+          return done(null, false);
+        }
+      },
+      function (err) {
+        if (err) {
+          return done(err);
+        }
+      }
+    );
+  }
+
+  passport.serializeUser(serializeUser);
+
+  function serializeUser(user, done) {
+    done(null, user);
+  }
+
+  passport.deserializeUser(deserializeUser);
+
+  function deserializeUser(user, done) {
+    userModel.findUserById(user._id).then(
+      function (user) {
+        done(null, user);
+      },
+      function (err) {
+        done(err, null);
+      }
+    );
+  }
+
+  passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+
+  function facebookStrategy(token, refreshToken, profile, done) {
+    userModel.findUserByFacebookId(profile.id).then(
+      function (user) {
+        if (user) {
+          return done(null, user);
+        } else {
+          var names = profile.displayName.split(" ");
+          var newFacebookUser = {
+            username: 'username',
+            password: 'password',
+            // username: '123',
+            // password: '123',
+            lastName: names[1],
+            firstName: names[0],
+            email: profile.emails ? profile.emails[0].value : "",
+            facebook: {
+              id: profile.id,
+              token: token
+            }
+          };
+          return userModel.createUser(newFacebookUser);
+        }
+      },
+      function (err) {
+        if (err) {
+          return done(err);
+        }
+      }
+    ).then(
+      function (user) {
+        return done(null, user);
+      },
+      function (err) {
+        if (err) {
+          return done(err);
+        }
+      }
+    );
+  }
+
+  function loggedIn(req, res) {
+    res.json(req.isAuthenticated() ? req.user : '0');
+  }
+
+  function login(req, res) {
+    var user = req.user;
+    res.json(user);
+  }
+
+  function logout(req, res) {
+    req.logout();
+    res.json(true);
+  }
+
+  function register(req, res) {
+    console.log('server side register user');
+    var newUser = req.body;
+    newUser.password = bcrypt.hashSync(newUser.password);
+    userModel.findUserByUserName(newUser.username).then(
+      function (user) {
+        if (user) {
+          res.sendStatus(400).json("Username already exist!");
+          return;
+        } else {
+          userModel.createUser(newUser).then(
+            function (user) {
+              if (user) {
+                req.login(user, function (err) {
+                  if (err) {
+                    res.sendStatus(400).send(err);
+                  } else {
+                    res.json(user);
+                  }
+                });
+              }
+            }
+          )
+        }
+      }
+    )
+  }
 
   function createUser(req, res) {
-    console.log('server side create user')
+    console.log('server side create user');
     var user = req.body;
     userModel.createUser(user).then(
       function (user) {
@@ -175,7 +299,7 @@ module.exports = function (app) {
   //     findUserByUsername(req, res);
   //   }
   // }
-  //
+
   // function findUserByUsername(req, res) {
   //   var username = req.query["username"];
   //   for (var i = 0; i < users.length; i++) {
@@ -185,30 +309,6 @@ module.exports = function (app) {
   //     }
   //   }
   //   res.status(404).send('Cannot find user with username: ' + username);
-  // };
-  //
-  // function findUserByCredentials(req, res) {
-  //   var username = req.query["username"];
-  //   var password = req.query["password"];
-  //   for (var i = 0; i < users.length; i++) {
-  //     if (users[i].username === username && users[i].password === password) {
-  //       res.json(users[i]);
-  //       return;
-  //     }
-  //   }
-  //   // res.status(404).send('username and password do not match.');
-  //   res.status(404).send("username and password do not match");
-  // }
-
-  // function findUserById(req, res) {
-  //   var userId = req.params["userId"];
-  //   for (var i = 0; i < users.length; i++) {
-  //     if (users[i]._id === userId) {
-  //       res.json(users[i]);
-  //       return;
-  //     }
-  //   }
-  //   res.status(404).send('Cannot find user with user ID: ' + userId);
   // };
 
   function findUserById(req, res) {

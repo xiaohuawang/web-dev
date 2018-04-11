@@ -7,6 +7,10 @@ var UserSchema = mongoose.Schema({
   firstname: String,
   lastname: String,
   email: String,
+  facebook: {
+    id: String,
+    token: String
+  },
   websites: [websiteSchema],
   dob: Date,
 }, {collection: 'user'});

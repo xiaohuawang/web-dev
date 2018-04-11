@@ -6,6 +6,7 @@ import {User} from '../../../model/user.model.client';
 import {ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Widget} from '../../../model/widget.model.client';
+import {SharedService} from '../../../service/shared.service';
 
 
 @Component({
@@ -22,7 +23,9 @@ export class LoginComponent implements OnInit {
   Users: any[];
 
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService,
+              private router: Router,
+              private sharedService: SharedService) {
   }
 
   ngOnInit() {
@@ -44,13 +47,16 @@ export class LoginComponent implements OnInit {
     // console.log(this.username);
     // console.log(this.password);
     alert(this.username);
-    // if (!this.errorFlag) {
-    this.userService.findUserByCredentials(username, password)
+
+    this.userService.login(username, password)
       .subscribe(
-        (user: any) => {
+        (data: any) => {
           this.errorFlag = false;
-          console.log(user);
-          this.router.navigate(['/user', user._id]);
+          console.log('login method data= ' + data);
+          this.sharedService.user = data;
+          console.log(this.sharedService.user);
+          // this.router.navigate(['/user', user._id]);
+          this.router.navigate(['/profile']);
         },
         (error: any) => {
           this.errorFlag = true;

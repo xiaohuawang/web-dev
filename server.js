@@ -4,7 +4,20 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const passport = require('passport');
 const app = express();
+
+app.use(session({
+  secret: 'S3CR3T!',
+  resave: true,
+  saveUninitialized: true
+}));
+
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //add
 var connectionString = 'mongodb://xiaohua:a62811610@ds135399.mlab.com:35399/heroku_r3jrthjf'; // for heroku

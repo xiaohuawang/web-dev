@@ -32,6 +32,8 @@ import {SortableDirective} from '../../assignment/directives/sortable.directive'
 import {FlickrImageComponent} from './views/widget/widget-edit/widget-image/flickr-image/flickr-image.component';
 import {FlickrService} from '../app/service/flickr.service.client';
 import {OrderByPipe} from './views/widget/widget-list/order-by-pipe.pipe';
+import {SharedService} from './service/shared.service';
+import {AuthGuard} from './service/auth-guard.service';
 
 
 @NgModule({
@@ -65,7 +67,7 @@ import {OrderByPipe} from './views/widget/widget-list/order-by-pipe.pipe';
     routing,
     QuillEditorModule
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService, AuthGuard, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
