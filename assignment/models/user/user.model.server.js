@@ -43,6 +43,6 @@ function deleteUser(userId) {
   return UserModel.findByIdAndRemove(userId);
 }
 
-function findUserByFacebookId(facebokId) {
+function findUserByFacebookId(facebookId) {
   return UserModel.findOne({'facebook.id': facebookId});
 }
