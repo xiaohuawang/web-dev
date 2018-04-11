@@ -88,6 +88,7 @@ module.exports = function (app) {
   passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
   function facebookStrategy(token, refreshToken, profile, done) {
+    console.log('facebook id= '+profile.id);
     userModel.findUserByFacebookId(profile.id).then(
       function (user) {
         if (user) {
@@ -97,8 +98,6 @@ module.exports = function (app) {
           var newFacebookUser = {
             username: 'username',
             password: 'password',
-            // username: '123',
-            // password: '123',
             lastName: names[1],
             firstName: names[0],
             email: profile.emails ? profile.emails[0].value : "",
@@ -126,6 +125,7 @@ module.exports = function (app) {
       }
     );
   }
+
 
   function loggedIn(req, res) {
     res.json(req.isAuthenticated() ? req.user : '0');
