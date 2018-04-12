@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
   username: String;
   password: String;
   verifyPassword: String;
-  errorFlag;
+  errorFlag: boolean;
   errorMsg: String;
 
   constructor(private userService: UserService, private router: Router) {
@@ -43,20 +43,16 @@ export class RegisterComponent implements OnInit {
       this.errorFlag = true;
     }
     if (password == null || password.trim() === '') {
-      this.errorMsg = 'Password cannot be empty';
+      this.errorMsg = 'password cannot be empty';
       this.errorFlag = true;
     }
     if (password !== verifyPassword) {
       this.errorMsg = 'the two password do not match!';
       this.errorFlag = true;
     }
-    if (verifyPassword == null || verifyPassword.trim() === '') {
-      this.errorMsg = 'Verify Password cannot be empty';
-      this.errorFlag = true;
-    }
-    if (this.errorFlag) {
-      return;
-    }
+    // if (this.errorFlag === true) {
+    //   return;
+    // }
     if (!this.errorFlag) {
       console.log('creating user');
       // this.user.username = this.username;

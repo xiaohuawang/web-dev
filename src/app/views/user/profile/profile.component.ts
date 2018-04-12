@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit {
       this.router.navigate([url]);
     } else {
       this.user = this.sharedService.user;
+      this.userId = this.user._id;
       console.log('this uid= ' + this.user._id);
       return this.userService.findUserById(this.user._id).subscribe(
         (user: any) => {
