@@ -30,15 +30,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.errorFlag = false;
-    this.errorFlag = false;
   }
 
   login(username: String, password: String) {
-    if (username.trim() === '') {
+    if (username == null || username.trim() === '') {
       this.errorMsg = 'Username cannot be empty';
       this.errorFlag = true;
     }
-    if (password.trim() === '') {
+    if (password == null || password.trim() === '') {
       this.errorMsg = 'Password cannot be empty';
       this.errorFlag = true;
     }
