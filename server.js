@@ -20,7 +20,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //add
-var connectionString = 'mongodb://xiaohua:a62811610@ds135399.mlab.com:35399/heroku_r3jrthjf'; // for herokuon
+// var connectionString = 'mongodb://xiaohua:a62811610@ds135399.mlab.com:35399/heroku_r3jrthjf'; // for herokuon
+var connectionString = 'mongodb://wenfeixiang:a62811610@ds145573.mlab.com:45573/heroku_5f8ksq0f'
 var mongoose = require("mongoose");
 mongoose.createConnection(connectionString);
 
